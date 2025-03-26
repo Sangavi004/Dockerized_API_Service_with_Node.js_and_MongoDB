@@ -23,4 +23,14 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// 🔹 FIX: Add GET route to fetch all users
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find(); // Fetch all users from MongoDB
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users", error });
+  }
+});
+
 module.exports = router;

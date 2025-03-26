@@ -2,12 +2,32 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const helmet = require("helmet");
 
 dotenv.config(); // Load .env file
 
 const app = express();
 app.use(express.json()); // Enable JSON body parsing
-app.use(cors()); // Enable CORS
+
+// ✅ CORS Configuration (Fix for Content Security Policy issue)
+const corsOptions = {
+  origin: "*", // Temporary fix - Change this to your frontend URL when deploying
+  methods: "GET, POST, PUT, DELETE",
+  allowedHeaders: "Content-Type, Authorization",
+};
+app.use(cors(corsOptions));
+
+// ✅ Helmet for Security & CSP Fix
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'", "https://your-api-server.com"],
+        connectSrc: ["'self'", "https://your-api-server.com"],
+      },
+    },
+  })
+);
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI; // MongoDB Connection String
