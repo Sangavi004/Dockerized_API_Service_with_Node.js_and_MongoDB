@@ -95,7 +95,7 @@ app.post("/api/insert-user", async (req, res) => {
 // ✅ Fix: Add a GET API to return some sample data
 app.get("/api/data", (req, res) => {
   res.json({
-    message: "Hello! This is sample data from your API.",
+    message: "Hello! This is sample data from my API.",
     users: [
       { name: "Alice", email: "alice@example.com" },
       { name: "Bob", email: "bob@example.com" },
