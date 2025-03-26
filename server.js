@@ -43,7 +43,7 @@ mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("✅ MongoDB Connected");
-    
+
     // Example Call: Insert a Test User with Custom Data
     insertUser("Ravi", "ravi@example.com", "ravi98768");
   })
@@ -90,6 +90,17 @@ app.post("/api/insert-user", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "❌ Failed to add user", details: error });
   }
+});
+
+// ✅ Fix: Add a GET API to return some sample data
+app.get("/api/data", (req, res) => {
+  res.json({
+    message: "Hello! This is sample data from your API.",
+    users: [
+      { name: "Alice", email: "alice@example.com" },
+      { name: "Bob", email: "bob@example.com" },
+    ],
+  });
 });
 
 // Import User Routes
